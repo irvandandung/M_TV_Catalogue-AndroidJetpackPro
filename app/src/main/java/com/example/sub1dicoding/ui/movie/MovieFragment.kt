@@ -5,14 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ShareCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import com.example.sub1dicoding.R
+import com.example.sub1dicoding.data.MovieEntity
 import com.example.sub1dicoding.ui.movie.viewmodel.MovieViewModel
 import kotlinx.android.synthetic.main.fragment_movie.*
 
-class MovieFragment : Fragment() {
+class MovieFragment : Fragment(), MovieFragmentCallback {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,7 +28,7 @@ class MovieFragment : Fragment() {
         if (activity != null){
             val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MovieViewModel::class.java]
             val movie = viewModel.getMovieData()
-            val movieAdapter = MovieAdapter()
+            val movieAdapter = MovieAdapter(this)
             movieAdapter.setMovie(movie)
 
             with(rv_movie){
@@ -37,4 +38,20 @@ class MovieFragment : Fragment() {
             }
         }
     }
+
+    override fun onShareClick(movie: MovieEntity) {
+        if (activity != null) {
+            val mimeType = "text/plain"
+            ShareCompat.IntentBuilder.from(activity).apply {
+                setType(mimeType)
+                setChooserTitle("Share M-TV Catalogue now!.")
+                setText("Share M-TV Catalogue now!. ${resources.getString(R.string.share_text)} ${movie.title}")
+                startChooser()
+            }
+        }
+    }
+}
+
+interface MovieFragmentCallback {
+    fun onShareClick(movie : MovieEntity)
 }
