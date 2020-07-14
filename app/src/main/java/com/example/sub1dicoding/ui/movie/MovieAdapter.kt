@@ -11,7 +11,7 @@ import com.example.sub1dicoding.R
 import com.example.sub1dicoding.data.MovieEntity
 import kotlinx.android.synthetic.main.items_movie.view.*
 
-class MovieAdapter : RecyclerView.Adapter<MovieAdapter.movieViewHolder>(){
+class MovieAdapter(private val callback : MovieFragmentCallback) : RecyclerView.Adapter<MovieAdapter.movieViewHolder>(){
     private  var listMovie = ArrayList<MovieEntity>()
 
     fun setMovie(movie : List<MovieEntity>?){
@@ -34,7 +34,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.movieViewHolder>(){
         holder.bind(movie)
     }
 
-    class movieViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+    inner class movieViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         fun bind(movie : MovieEntity){
             with(itemView){
                 tv_item_title.text = movie.title
@@ -45,6 +45,9 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.movieViewHolder>(){
                         putExtra(DetailMovieActivity.EXTRA_MOVIE, movie.id)
                     }
                     context.startActivity(intent)
+                }
+                img_share.setOnClickListener {
+                    callback.onShareClick(movie)
                 }
                 Glide.with(context)
                     .load(movie.imagePath)

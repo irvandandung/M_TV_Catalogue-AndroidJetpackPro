@@ -11,7 +11,7 @@ import com.example.sub1dicoding.R
 import com.example.sub1dicoding.data.TvShowsEntity
 import kotlinx.android.synthetic.main.items_tvshow.view.*
 
-class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.tvshowViewHolder>(){
+class TvShowAdapter(private var callback : TvShowFragmentCallback) : RecyclerView.Adapter<TvShowAdapter.tvshowViewHolder>(){
     private var listTvShow = ArrayList<TvShowsEntity>()
 
     fun setTvShow(tvshow : List<TvShowsEntity>?){
@@ -32,7 +32,7 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.tvshowViewHolder>(){
         holder.bind(tvshow)
     }
 
-    class tvshowViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+    inner class tvshowViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         fun bind(tvshow : TvShowsEntity){
             with(itemView){
                 tv_item_title.text = tvshow.title
@@ -43,6 +43,9 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.tvshowViewHolder>(){
                         putExtra(DetailTvShowActivity.EXTRA_TV_SHOW, tvshow.id)
                     }
                     context.startActivity(intent)
+                }
+                img_share.setOnClickListener {
+                    callback.onShareClick(tvshow)
                 }
                 Glide.with(context)
                     .load(tvshow.imagePath)
