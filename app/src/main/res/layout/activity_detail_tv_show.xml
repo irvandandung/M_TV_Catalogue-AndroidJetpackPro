@@ -4,10 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.sub1dicoding.ui.tvshow.DetailTvShowActivity">
-
+    tools:context="com.example.jetpackpro.ui.tvshow.DetailTvShowActivity">
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="356dp"
         android:fitsSystemWindows="true">
@@ -20,7 +18,6 @@
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -42,57 +39,66 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:padding="@dimen/activity_horizontal_margin">
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/progress_bar"
+                style="?android:attr/progressBarStyle"
+                android:visibility="gone">
+            </ProgressBar>
 
             <TextView
                 android:id="@+id/titleDetail"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:text="Hello World!"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/labelOL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/titleDetail"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/labelOriginalLanguage"
                 android:textColor="@color/colorText"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                app:srcCompat="@drawable/ic_date_range_black_24dp" />
 
             <TextView
-                android:id="@+id/originalLanguageDetail"
+                android:id="@+id/tanggal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/labelOL"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:text="@string/originalLanguage"
+                android:layout_alignStart="@+id/labelOL"
+                android:layout_marginStart="-26dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/tanggal"
                 android:textColor="@color/colorTextSecondary"
                 android:textSize="14sp" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/labeltimeDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_watch_later_black_24dp"
                 android:layout_below="@+id/titleDetail"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="30dp"
-                android:text="@string/labelEpisode"
+                android:text="@string/LabelTimeDuration"
                 android:textColor="@color/colorText"
                 android:textSize="16sp" />
 
@@ -101,62 +107,103 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/labeltimeDetail"
-                android:layout_alignStart="@+id/labeltimeDetail"
+                android:layout_alignEnd="@+id/labeltimeDetail"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="-20dp"
+                android:text="@string/time"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/vote_average"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/stars"
                 android:layout_marginStart="0dp"
-                android:layout_marginTop="5dp"
-                android:text="@string/status"
-                android:textColor="@color/colorTextSecondary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/labelStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/originalLanguageDetail"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="@string/LabelSession"
-                android:textColor="@color/colorText"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/statusDetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/labelStatus"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:text="@string/status"
+                android:layout_marginEnd="0dp"
+                android:layout_toStartOf="@+id/labeltimeDetail"
+                android:layout_toEndOf="@+id/labelOL"
+                android:text="7.0"
+                android:textAlignment="center"
                 android:textColor="@color/colorTextSecondary"
                 android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/labelOverview"
+            <ImageView
+                android:id="@+id/stars"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/statusDetail"
+                android:layout_below="@+id/titleDetail"
+                android:layout_marginTop="15dp"
+                android:layout_toStartOf="@+id/labeltimeDetail"
+                android:layout_toEndOf="@+id/labelOL"
+                app:srcCompat="@drawable/ic_stars_" />
+
+            <ImageView
+                android:id="@+id/imagepople"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tanggal"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                app:srcCompat="@drawable/ic_people_black_24dp" />
+
+            <ImageView
+                android:id="@+id/imageglobe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/timeDetail"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                app:srcCompat="@drawable/ic_language_black_24dp" />
+
+            <TextView
+                android:id="@+id/people_popularity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imagepople"
+                android:layout_alignStart="@+id/imagepople"
+                android:layout_marginStart="-18dp"
                 android:layout_marginTop="10dp"
-                android:text="@string/labelOverview"
-                android:textColor="@color/colorText"
-                android:textSize="16sp" />
+                android:text="popularity" />
 
             <TextView
-                android:id="@+id/overviewDetail"
+                android:id="@+id/language"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/labelOverview"
+                android:layout_below="@+id/imageglobe"
+                android:layout_alignEnd="@+id/imageglobe"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="6dp"
+                android:text="en" />
+
+            <TextView
+                android:id="@+id/LabelUNiv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/vote_average"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:text="-"
-                android:textColor="@color/colorTextSecondary"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="120dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:text="Overview"
+                android:textAlignment="center"
+                android:textColor="@color/colorText"
                 android:textSize="14sp" />
 
+            <TextView
+                android:id="@+id/overview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/LabelUNiv"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="10dp"
+                android:text="Lorem imsum" />
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

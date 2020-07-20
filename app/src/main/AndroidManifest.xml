@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sub1dicoding">
+    package="com.example.jetpackpro">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
@@ -10,15 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.tvshow.DetailTvShowActivity"
+            android:name="com.example.jetpackpro.ui.tvshow.DetailTvShowActivity"
             android:label="@string/title_activity_detail_tvshow"
             android:theme="@style/AppTheme.Light.NoActionBar"
             />
         <activity
-            android:name=".ui.movie.DetailMovieActivity"
+            android:name="com.example.jetpackpro.ui.movie.DetailMovieActivity"
             android:label="@string/title_activity_detail_movie"
             android:theme="@style/AppTheme.Light.NoActionBar" />
-        <activity android:name=".ui.home.MainActivity">
+        <activity android:name="com.example.jetpackpro.ui.home.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
