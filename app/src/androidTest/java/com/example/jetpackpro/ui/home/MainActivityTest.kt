@@ -18,9 +18,6 @@ import org.junit.Test
 
 class MainActivityTest{
 
-    val movie = DataObjek.listDataMovieDummy()[0]
-    val tvShow = DataObjek.listDataTvShowDummy()[0]
-
     @get:Rule
     var activityRule = ActivityTestRule(MainActivity::class.java)
 
@@ -44,7 +41,7 @@ class MainActivityTest{
     fun loadMovieDetail(){
         onView(withId(R.id.rv_movie)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
         onView(withId(R.id.titleDetail)).check(matches(isDisplayed()))
-        onView(withId(R.id.titleDetail)).check(matches(withText(movie.title)))
+        onView(withId(R.id.timeDetail)).check(matches(isDisplayed()))
     }
 
     @Test
@@ -59,6 +56,6 @@ class MainActivityTest{
         onView(withText("LIST TV SHOW")).perform(click())
         onView(withId(R.id.rv_tvshow)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
         onView(withId(R.id.titleDetail)).check(matches(isDisplayed()))
-        onView(withId(R.id.titleDetail)).check(matches(withText(tvShow.name)))
+        onView(withId(R.id.timeDetail)).check(matches(isDisplayed()))
     }
 }
