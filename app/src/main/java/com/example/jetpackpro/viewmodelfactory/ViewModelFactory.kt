@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.jetpackpro.data.source.Repository
-import com.example.jetpackpro.data.source.remote.network.ApiServices
 import com.example.jetpackpro.di.Injection
 import com.example.jetpackpro.ui.movie.viewmodel.MovieDetailViewModel
 import com.example.jetpackpro.ui.movie.viewmodel.MovieViewModel
@@ -16,9 +15,9 @@ class ViewModelFactory private constructor(private val appRepository: Repository
         @Volatile
         private var instance : ViewModelFactory? = null
 
-        fun getInstance(context: Context, api:ApiServices) : ViewModelFactory =
+        fun getInstance(context: Context) : ViewModelFactory =
             instance ?: synchronized(this){
-                instance?: ViewModelFactory(Injection.provideRepository(context, api))
+                instance?: ViewModelFactory(Injection.provideRepository(context))
             }
     }
 

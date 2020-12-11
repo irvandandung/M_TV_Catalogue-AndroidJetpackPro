@@ -1,4 +1,4 @@
-package com.example.jetpackpro.ui.movie
+package com.example.jetpackpro.ui.movie.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -10,10 +10,12 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.jetpackpro.BuildConfig
 import com.example.jetpackpro.R
 import com.example.jetpackpro.data.movieentity.Result
+import com.example.jetpackpro.ui.movie.DetailMovieActivity
+import com.example.jetpackpro.ui.movie.fragment.MovieFragmentCallback
 import kotlinx.android.synthetic.main.items_movie.view.*
 
-class MovieAdapter(private val callback : MovieFragmentCallback) : RecyclerView.Adapter<MovieAdapter.movieViewHolder>(){
-    private  var listMovie = ArrayList<Result>()
+class MovieAdapter(private val callback : MovieFragmentCallback) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>(){
+    private var listMovie = ArrayList<Result>()
 
     fun setMovie(movie : List<Result>?){
         if (movie == null) return
@@ -23,19 +25,19 @@ class MovieAdapter(private val callback : MovieFragmentCallback) : RecyclerView.
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): movieViewHolder {
+    ): MovieViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.items_movie, parent, false)
-        return movieViewHolder(view)
+        return MovieViewHolder(view)
     }
 
     override fun getItemCount(): Int = listMovie.size
 
-    override fun onBindViewHolder(holder: MovieAdapter.movieViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = listMovie[position]
         holder.bind(movie)
     }
 
-    inner class movieViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+    inner class MovieViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         fun bind(movie : Result){
             with(itemView){
                 tv_item_title.text = movie.title
@@ -57,5 +59,5 @@ class MovieAdapter(private val callback : MovieFragmentCallback) : RecyclerView.
             }
         }
     }
-
 }
+

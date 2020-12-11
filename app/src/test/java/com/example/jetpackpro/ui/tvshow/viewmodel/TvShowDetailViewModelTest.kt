@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import com.example.jetpackpro.data.source.Repository
 import com.example.jetpackpro.data.tvshowentity.TvShow
 import com.example.jetpackpro.utils.DataObjek
+import com.example.jetpackpro.vo.Resource
 import org.junit.Before
 import org.junit.Test
 
@@ -20,8 +21,8 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class TvShowDetailViewModelTest {
     private lateinit var viewModel: TvShowDetailViewModel
-    private val dummyTvshow = DataObjek.dataDetailTvShow()
-    private val tvShowId = dummyTvshow.id
+    private val dummyTvshow : Resource<TvShow?> = Resource.success(DataObjek.dataDetailTvShow())
+    private val tvShowId = dummyTvshow.data?.id
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -30,7 +31,7 @@ class TvShowDetailViewModelTest {
     private lateinit var appRepository : Repository
 
     @Mock
-    private lateinit var tvShowObserver: Observer<TvShow>
+    private lateinit var tvShowObserver: Observer<Resource<TvShow?>>
 
 
     @Before
@@ -41,17 +42,17 @@ class TvShowDetailViewModelTest {
 
     @Test
     fun getTvShow() {
-        val tvshow = MutableLiveData<TvShow>()
+        val tvshow = MutableLiveData<Resource<TvShow?>>()
         tvshow.value = dummyTvshow
 
         `when`(tvShowId?.let { appRepository.getDetailTvShow(it) }).thenReturn(tvshow)
         val tvShowEntity = viewModel.getTvShow().value
         tvShowId?.let { verify(appRepository).getDetailTvShow(it) }
         assertNotNull(tvShowEntity)
-        assertEquals(dummyTvshow.id, tvShowEntity?.id)
-        assertEquals(dummyTvshow.originalName, tvShowEntity?.originalName)
-        assertEquals(dummyTvshow.backdropPath, tvShowEntity?.backdropPath)
-        assertEquals(dummyTvshow.voteAverage, tvShowEntity?.voteAverage)
+        assertEquals(dummyTvshow.data?.id, dummyTvshow.data?.id)
+        assertEquals(dummyTvshow.data?.originalName, tvShowEntity?.data?.originalName)
+        assertEquals(dummyTvshow.data?.backdropPath, tvShowEntity?.data?.backdropPath)
+        assertEquals(dummyTvshow.data?.voteAverage, tvShowEntity?.data?.voteAverage)
 
         viewModel.getTvShow().observeForever(tvShowObserver)
         verify(tvShowObserver).onChanged(dummyTvshow)

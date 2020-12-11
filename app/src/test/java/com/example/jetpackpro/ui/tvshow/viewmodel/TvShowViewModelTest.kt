@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import com.example.jetpackpro.data.source.Repository
 import com.example.jetpackpro.data.tvshowentity.Result
 import com.example.jetpackpro.utils.DataObjek
+import com.example.jetpackpro.vo.Resource
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -28,7 +29,7 @@ class TvShowViewModelTest {
     private lateinit var appRepository: Repository
 
     @Mock
-    private lateinit var observer: Observer<List<Result>>
+    private lateinit var observer: Observer<Resource<List<Result>?>>
 
     @Before
     fun setUp(){
@@ -37,15 +38,15 @@ class TvShowViewModelTest {
 
     @Test
     fun getTvShowData() {
-        val dummyTvShows = DataObjek.listDataTvShowDummy()
-        val tvshow = MutableLiveData<List<Result>>()
+        val dummyTvShows : Resource<List<Result>?> = Resource.success(DataObjek.listDataTvShowDummy())
+        val tvshow = MutableLiveData<Resource<List<Result>?>>()
         tvshow.value = dummyTvShows
 
         `when`(appRepository.getAllTvshow()).thenReturn(tvshow)
         val tvshowsEntities = viewModel.getTvShowData().value
         verify<Repository>(appRepository).getAllTvshow()
         assertNotNull(tvshowsEntities)
-        assertEquals(1, tvshowsEntities?.size)
+        assertEquals(1, tvshowsEntities?.data?.size)
 
         viewModel.getTvShowData().observeForever(observer)
         verify(observer).onChanged(dummyTvShows)

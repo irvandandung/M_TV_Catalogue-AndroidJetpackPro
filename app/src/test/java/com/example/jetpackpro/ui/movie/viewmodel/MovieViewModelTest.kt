@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import com.example.jetpackpro.data.movieentity.Result
 import com.example.jetpackpro.data.source.Repository
 import com.example.jetpackpro.utils.DataObjek
+import com.example.jetpackpro.vo.Resource
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -28,7 +29,7 @@ class MovieViewModelTest {
     private lateinit var appRepository: Repository
 
     @Mock
-    private lateinit var observer: Observer<List<Result>>
+    private lateinit var observer: Observer<Resource<List<Result>?>>
 
     @Before
     fun setUp(){
@@ -37,15 +38,15 @@ class MovieViewModelTest {
 
     @Test
     fun getMovieData() {
-        val dummyMovies = DataObjek.listDataMovieDummy()
-        val movies = MutableLiveData<List<Result>>()
+        val dummyMovies : Resource<List<Result>?> = Resource.success(DataObjek.listDataMovieDummy())
+        val movies = MutableLiveData<Resource<List<Result>?>>()
         movies.value = dummyMovies
 
         `when`(appRepository.getAllMovies()).thenReturn(movies)
         val movieEntities = viewModel.getMovieData().value
         verify<Repository>(appRepository).getAllMovies()
         assertNotNull(movieEntities)
-        assertEquals(2, movieEntities?.size)
+        assertEquals(2, movieEntities?.data?.size)
 
         viewModel.getMovieData().observeForever(observer)
         verify(observer).onChanged(dummyMovies)

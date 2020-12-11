@@ -1,26 +1,26 @@
-package com.example.jetpackpro.ui.home
+package com.example.jetpackpro.ui.movie.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.jetpackpro.ui.movie.MovieFragment
-import com.example.jetpackpro.ui.tvshow.TvShowFragment
+import com.example.jetpackpro.ui.movie.fragment.MovieFavoriteFragment
+import com.example.jetpackpro.ui.movie.fragment.MovieFragment
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class SectionsMoviePagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     private var titleMovie : String = ""
-    private var titleTvShow : String = ""
+    private var titleMovieFavorite : String = ""
 
     private val pages = listOf(
-        MovieFragment(),
-        TvShowFragment()
+            MovieFragment(),
+            MovieFavoriteFragment()
     )
 
-    fun setTitle(movie:String, tvshow:String){
+    fun setTitle(movie:String, movieFavorite:String){
         titleMovie = movie
-        titleTvShow = tvshow
+        titleMovieFavorite = movieFavorite
     }
 
     override fun getItem(position: Int): Fragment = pages[position]
@@ -28,7 +28,7 @@ class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     override fun getPageTitle(position: Int) : CharSequence? {
         return when (position) {
             0 -> titleMovie
-            else -> titleTvShow
+            else -> titleMovieFavorite
         }
     }
 

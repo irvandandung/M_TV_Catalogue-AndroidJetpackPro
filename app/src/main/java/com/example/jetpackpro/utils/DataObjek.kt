@@ -5,7 +5,7 @@ import com.example.jetpackpro.data.tvshowentity.LastEpisodeToAir
 import com.example.jetpackpro.data.tvshowentity.TvShow
 
 object DataObjek {
-    fun listDataMovieDummy():List<Result>{
+    fun listDataMovieDummy():List<Result>?{
         val movie = ArrayList<Result>()
 
         movie.add(Result(
@@ -66,7 +66,7 @@ object DataObjek {
         return tvShow
     }
 
-    fun dataDetailMovieDummy() : Movie{
+    fun dataDetailMovieDummy() : Movie?{
         return Movie(
             id = 516486,
             adult = true,
@@ -95,7 +95,7 @@ object DataObjek {
         )
     }
 
-    fun dataDetailTvShow() : TvShow{
+    fun dataDetailTvShow() : TvShow?{
         return TvShow(
             id = 516486,
             voteAverage = 1.4,

@@ -1,4 +1,4 @@
-package com.example.jetpackpro.ui.tvshow
+package com.example.jetpackpro.ui.tvshow.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -10,9 +10,11 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.jetpackpro.BuildConfig
 import com.example.jetpackpro.R
 import com.example.jetpackpro.data.tvshowentity.Result
+import com.example.jetpackpro.ui.tvshow.DetailTvShowActivity
+import com.example.jetpackpro.ui.tvshow.fragment.TvShowFragmentCallback
 import kotlinx.android.synthetic.main.items_tvshow.view.*
 
-class TvShowAdapter(private var callback : TvShowFragmentCallback) : RecyclerView.Adapter<TvShowAdapter.tvshowViewHolder>(){
+class TvShowAdapter(private var callback : TvShowFragmentCallback) : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>(){
     private var listTvShow = ArrayList<Result>()
 
     fun setTvShow(tvshow : List<Result>?){
@@ -21,19 +23,19 @@ class TvShowAdapter(private var callback : TvShowFragmentCallback) : RecyclerVie
         listTvShow.addAll(tvshow)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): tvshowViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.items_tvshow, parent, false)
-        return tvshowViewHolder(view)
+        return TvShowViewHolder(view)
     }
 
     override fun getItemCount(): Int = listTvShow.size
 
-    override fun onBindViewHolder(holder: tvshowViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TvShowViewHolder, position: Int) {
         val tvshow = listTvShow[position]
         holder.bind(tvshow)
     }
 
-    inner class tvshowViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+    inner class TvShowViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         fun bind(tvshow : Result){
             with(itemView){
                 tv_item_title.text = tvshow.name
