@@ -49,7 +49,7 @@ class MovieFragment : Fragment(),
                         Status.LOADING -> showLoading(true)
                         Status.SUCCESS -> {
                             showLoading(false)
-                            movieAdapter.setMovie(movie.data)
+                            movieAdapter.submitList(movie.data)
                             with(rv_movie){
                                 layoutManager = LinearLayoutManager(context)
                                 setHasFixedSize(true)

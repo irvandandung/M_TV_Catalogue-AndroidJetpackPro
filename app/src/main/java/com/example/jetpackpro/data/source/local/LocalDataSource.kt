@@ -1,6 +1,7 @@
 package com.example.jetpackpro.data.source.local
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import com.example.jetpackpro.data.movieentity.Movie
 import com.example.jetpackpro.data.movieentity.MovieFavorite
 import com.example.jetpackpro.data.movieentity.Result
@@ -16,7 +17,7 @@ class LocalDataSource private constructor(private val entityDao: EntityDao){
     }
 
     //Movie
-    fun getAllListMovie(): LiveData<List<Result>?> = entityDao.getAllListMovie()
+    fun getAllListMovie(): DataSource.Factory<Int, Result> = entityDao.getAllListMovie()
 
     fun insertListMovie(movie : Result) = entityDao.insertListMovie(movie)
 
@@ -37,7 +38,7 @@ class LocalDataSource private constructor(private val entityDao: EntityDao){
     fun getCountFavoriteMovieById(id: Int) = entityDao.getCountFavoriteMovieById(id)
 
     //TvShow
-    fun getAllListTvShow() : LiveData<List<com.example.jetpackpro.data.tvshowentity.Result>?> = entityDao.getAllListTvShow()
+    fun getAllListTvShow() : DataSource.Factory<Int, com.example.jetpackpro.data.tvshowentity.Result> = entityDao.getAllListTvShow()
 
     fun insertListTvShow(tvShow : com.example.jetpackpro.data.tvshowentity.Result) = entityDao.insertListTvShow(tvShow)
 

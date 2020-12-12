@@ -1,6 +1,8 @@
 package com.example.jetpackpro.data.source
 
 import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.example.jetpackpro.data.movieentity.Movie
 import com.example.jetpackpro.data.movieentity.MovieFavorite
 import com.example.jetpackpro.data.movieentity.Result
@@ -29,13 +31,18 @@ class Repository private constructor(private val remoteDataSource: RemoteDataSou
     private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
 
     //movie
-    override fun getAllMovies(): LiveData<Resource<List<Result>?>> {
-        return object : NetworkBoundResource<List<Result>?, List<Result>?>(appExecutors){
-            public override fun loadFromDB(): LiveData<List<Result>?> {
-                return localDataSource.getAllListMovie()
+    override fun getAllMovies(): LiveData<Resource<PagedList<Result>?>> {
+        return object : NetworkBoundResource<PagedList<Result>?, List<Result>?>(appExecutors){
+            public override fun loadFromDB(): LiveData<PagedList<Result>?> {
+                val config = PagedList.Config.Builder()
+                    .setEnablePlaceholders(false)
+                    .setInitialLoadSizeHint(4)
+                    .setPageSize(4)
+                    .build()
+                return LivePagedListBuilder(localDataSource.getAllListMovie(), config).build()
             }
 
-            override fun shouldFetch(data: List<Result>?): Boolean {
+            override fun shouldFetch(data: PagedList<Result>?): Boolean {
                 return data == null || data.isEmpty()
             }
 
@@ -78,13 +85,18 @@ class Repository private constructor(private val remoteDataSource: RemoteDataSou
     override fun deleteFavoriteMovie(movie: MovieFavorite) = executorService.execute { localDataSource.deleteFavoriteMovie(movie) }
 
     //tv show
-    override fun getAllTvshow(): LiveData<Resource<List<com.example.jetpackpro.data.tvshowentity.Result>?>>{
-        return object : NetworkBoundResource<List<com.example.jetpackpro.data.tvshowentity.Result>?, List<com.example.jetpackpro.data.tvshowentity.Result>?>(appExecutors){
-            override fun loadFromDB(): LiveData<List<com.example.jetpackpro.data.tvshowentity.Result>?> {
-                return localDataSource.getAllListTvShow()
+    override fun getAllTvshow(): LiveData<Resource<PagedList<com.example.jetpackpro.data.tvshowentity.Result>?>>{
+        return object : NetworkBoundResource<PagedList<com.example.jetpackpro.data.tvshowentity.Result>?, List<com.example.jetpackpro.data.tvshowentity.Result>?>(appExecutors){
+            override fun loadFromDB(): LiveData<PagedList<com.example.jetpackpro.data.tvshowentity.Result>?> {
+                val config = PagedList.Config.Builder()
+                    .setEnablePlaceholders(false)
+                    .setInitialLoadSizeHint(4)
+                    .setPageSize(4)
+                    .build()
+                return LivePagedListBuilder(localDataSource.getAllListTvShow(), config).build()
             }
 
-            override fun shouldFetch(data: List<com.example.jetpackpro.data.tvshowentity.Result>?): Boolean {
+            override fun shouldFetch(data: PagedList<com.example.jetpackpro.data.tvshowentity.Result>?): Boolean {
                 return data == null || data.isEmpty()
             }
 
