@@ -50,7 +50,7 @@ class TvShowFragment : Fragment(),
                         Status.LOADING -> showLoading(true)
                         Status.SUCCESS -> {
                             showLoading(false)
-                            tvShowAdapter.setTvShow(tvshow.data)
+                            tvShowAdapter.submitList(tvshow.data)
                             with(rv_tvshow){
                                 layoutManager = LinearLayoutManager(context)
                                 setHasFixedSize(true)

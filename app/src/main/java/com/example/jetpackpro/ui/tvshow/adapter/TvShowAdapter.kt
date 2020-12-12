@@ -4,6 +4,8 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -14,25 +16,39 @@ import com.example.jetpackpro.ui.tvshow.DetailTvShowActivity
 import com.example.jetpackpro.ui.tvshow.fragment.TvShowFragmentCallback
 import kotlinx.android.synthetic.main.items_tvshow.view.*
 
-class TvShowAdapter(private var callback : TvShowFragmentCallback) : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>(){
-    private var listTvShow = ArrayList<Result>()
+class TvShowAdapter(private var callback : TvShowFragmentCallback) : PagedListAdapter<Result,TvShowAdapter.TvShowViewHolder>(DIFF_CALLBACK){
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Result>(){
+            override fun areItemsTheSame(oldItem: Result, newItem: Result): Boolean {
+                return oldItem.id == newItem.id
+            }
 
-    fun setTvShow(tvshow : List<Result>?){
-        if(tvshow == null) return
-        listTvShow.clear()
-        listTvShow.addAll(tvshow)
+            override fun areContentsTheSame(oldItem: Result, newItem: Result): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
+
+//    private var listTvShow = ArrayList<Result>()
+
+//    fun setTvShow(tvshow : List<Result>?){
+//        if(tvshow == null) return
+//        listTvShow.clear()
+//        listTvShow.addAll(tvshow)
+//    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.items_tvshow, parent, false)
         return TvShowViewHolder(view)
     }
 
-    override fun getItemCount(): Int = listTvShow.size
+//    override fun getItemCount(): Int = listTvShow.size
 
     override fun onBindViewHolder(holder: TvShowViewHolder, position: Int) {
-        val tvshow = listTvShow[position]
-        holder.bind(tvshow)
+        val tvshow = getItem(position)
+        if (tvshow != null){
+            holder.bind(tvshow)
+        }
     }
 
     inner class TvShowViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
