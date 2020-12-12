@@ -1,6 +1,7 @@
 package com.example.jetpackpro.data.source.local.dao
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 import com.example.jetpackpro.data.movieentity.Movie
 import com.example.jetpackpro.data.movieentity.MovieFavorite
@@ -18,7 +19,7 @@ interface EntityDao {
     fun updateListMovie(movie: Result)
 
     @Query("SELECT * FROM listmovie")
-    fun getAllListMovie(): LiveData<List<Result>?>
+    fun getAllListMovie(): DataSource.Factory<Int, Result>
 
     //detail movie
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -55,7 +56,7 @@ interface EntityDao {
     fun updateListTvShow(tvShow: com.example.jetpackpro.data.tvshowentity.Result)
 
     @Query("SELECT * FROM listtvshow")
-    fun getAllListTvShow():LiveData<List<com.example.jetpackpro.data.tvshowentity.Result>?>
+    fun getAllListTvShow(): DataSource.Factory<Int, com.example.jetpackpro.data.tvshowentity.Result>
 
     //detail tv show
     @Insert(onConflict = OnConflictStrategy.IGNORE)
