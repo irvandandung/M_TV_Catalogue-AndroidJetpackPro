@@ -17,8 +17,9 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
         buildConfigField "String", "URL_POSTER", "\"https://image.tmdb.org/t/p/w600_and_h900_bestv2\""
-        buildConfigField "String", "TSDB_API_KEY", "\"YOUR_API_KEY_MOVIE_DB\""
+        buildConfigField "String", "TSDB_API_KEY", "\"YOUR_API_KEY\""
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -63,7 +64,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$roomdb"
 
     //paging
-    implementation "androidx.paging:paging-runtime:$pagingVersion"
+    implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"
 
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.2'
@@ -82,11 +83,11 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:2.7.1"
     implementation 'com.squareup.okhttp3:okhttp:4.2.0'
     implementation "androidx.test.espresso:espresso-idling-resource:$idleResourceVersion"
+    implementation "org.mockito:mockito-core:$mockitoVersion"
+    implementation "org.mockito:mockito-inline:$mockitoVersion"
+    implementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
     testImplementation "androidx.arch.core:core-testing:$archLifecycleVersion"
     testImplementation "junit:junit:$junitVersion"
-    testImplementation "org.mockito:mockito-core:$mockitoVersion"
-    testImplementation "org.mockito:mockito-inline:$mockitoVersion"
-    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
     androidTestImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
