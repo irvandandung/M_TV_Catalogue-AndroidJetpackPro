@@ -2,6 +2,7 @@ package com.example.jetpackpro.source
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.DataSource
 import com.example.jetpackpro.data.movieentity.Movie
 import com.example.jetpackpro.data.movieentity.Result
 import com.example.jetpackpro.data.source.local.LocalDataSource
@@ -10,6 +11,8 @@ import com.example.jetpackpro.data.tvshowentity.TvShow
 import com.example.jetpackpro.utils.AppExecutors
 import com.example.jetpackpro.utils.DataObjek
 import com.example.jetpackpro.utils.LiveDataTestUtil
+import com.example.jetpackpro.utils.PagedListUtil
+import com.example.jetpackpro.vo.Resource
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNotNull
@@ -33,10 +36,17 @@ class RepositoryTest {
 
     @Test
     fun getAllMovie(){
-        val dummyMovies = MutableLiveData<List<Result>?>()
-        dummyMovies.value = DataObjek.listDataMovieDummy()
-        Mockito.`when`(local.getAllListMovie()).thenReturn(dummyMovies)
-        val moviesEntity = LiveDataTestUtil.getValue(repository.getAllMovies())
+        val dataMovieSourceFactory = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, Result>
+//        val dummyMovies = MutableLiveData<List<Result>?>()
+//        dummyMovies.value = DataObjek.listDataMovieDummy()
+        Mockito.`when`(local.getAllListMovie()).thenReturn(dataMovieSourceFactory)
+        repository.getAllMovies()
+
+        val moviesEntity = Resource.success(DataObjek.listDataMovieDummy()?.let {
+            PagedListUtil.mockPagedList(
+                it
+            )
+        })
         verify(local).getAllListMovie()
         assertNotNull(moviesEntity.data)
         assertEquals(movieResponse?.size?.toLong(), moviesEntity.data?.size?.toLong())
@@ -44,10 +54,13 @@ class RepositoryTest {
 
     @Test
     fun getAllTvShow(){
-        val dummyTvShow = MutableLiveData<List<com.example.jetpackpro.data.tvshowentity.Result>?>()
-        dummyTvShow.value = DataObjek.listDataTvShowDummy()
-        Mockito.`when`(local.getAllListTvShow()).thenReturn(dummyTvShow)
-        val tvShowEntity = LiveDataTestUtil.getValue(repository.getAllTvshow())
+        val dataTvShowSourceFactory = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, com.example.jetpackpro.data.tvshowentity.Result>
+//        val dummyTvShow = MutableLiveData<List<com.example.jetpackpro.data.tvshowentity.Result>?>()
+//        dummyTvShow.value = DataObjek.listDataTvShowDummy()
+        Mockito.`when`(local.getAllListTvShow()).thenReturn(dataTvShowSourceFactory)
+        repository.getAllTvshow()
+
+        val tvShowEntity = Resource.success(DataObjek.listDataTvShowDummy())
         verify(local).getAllListTvShow()
         assertNotNull(tvShowEntity.data)
         assertEquals(tvShowResponse.size.toLong(), tvShowEntity.data?.size?.toLong())
