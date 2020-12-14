@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import com.example.jetpackpro.R
 import com.example.jetpackpro.ui.movie.adapter.SectionsMoviePagerAdapter
-import kotlinx.android.synthetic.main.fragment_movie_section.*
 import kotlinx.android.synthetic.main.fragment_movie_section.view.*
 
 class MovieSectionFragment : Fragment() {
@@ -24,8 +24,8 @@ class MovieSectionFragment : Fragment() {
                 childFragmentManager
             )
         sectionsMoviePagerAdapter.setTitle(getString(R.string.moviee), getString(R.string.favorite_movie_title))
-        root.view_pager.adapter = sectionsMoviePagerAdapter
-        root.tabs_main.setupWithViewPager(root.view_pager)
+        root.view_pager_movie.adapter = sectionsMoviePagerAdapter
+        root.tabs_main.setupWithViewPager(root.view_pager_movie)
         return root
     }
 }

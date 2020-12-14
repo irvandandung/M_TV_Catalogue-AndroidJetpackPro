@@ -15,6 +15,7 @@ import com.example.jetpackpro.ui.movie.adapter.MovieFavoriteAdapter
 import com.example.jetpackpro.ui.movie.viewmodel.MovieViewModel
 import com.example.jetpackpro.viewmodelfactory.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_movie.*
+import kotlinx.android.synthetic.main.fragment_movie_favorite.*
 
 class MovieFavoriteFragment : Fragment(),
     MovieFragmentFavoriteCallback {
@@ -26,7 +27,7 @@ class MovieFavoriteFragment : Fragment(),
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movie, container, false)
+        return inflater.inflate(R.layout.fragment_movie_favorite, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,7 +43,7 @@ class MovieFavoriteFragment : Fragment(),
             showLoading(true)
             viewModel.getAllFavoriteMovie().observe(this.viewLifecycleOwner, Observer {movieFavorit ->
                 movieFavoriteAdapter.setFavoriteMovie(movieFavorit)
-                with(rv_movie){
+                with(rv_movie_favorite){
                     layoutManager = LinearLayoutManager(context)
                     setHasFixedSize(true)
                     adapter = movieFavoriteAdapter
@@ -54,9 +55,9 @@ class MovieFavoriteFragment : Fragment(),
 
     private fun showLoading(state: Boolean){
         if (state){
-            progress_bar.visibility = View.VISIBLE
+            progress_bar_favorite.visibility = View.VISIBLE
         }else{
-            progress_bar.visibility = View.GONE
+            progress_bar_favorite.visibility = View.GONE
         }
     }
 

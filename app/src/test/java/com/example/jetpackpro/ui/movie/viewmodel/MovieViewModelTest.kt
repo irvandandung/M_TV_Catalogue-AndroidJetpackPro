@@ -3,6 +3,7 @@ package com.example.jetpackpro.ui.movie.viewmodel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import com.example.jetpackpro.data.movieentity.Result
 import com.example.jetpackpro.data.source.Repository
 import com.example.jetpackpro.utils.DataObjek
@@ -29,7 +30,10 @@ class MovieViewModelTest {
     private lateinit var appRepository: Repository
 
     @Mock
-    private lateinit var observer: Observer<Resource<List<Result>?>>
+    private lateinit var observer: Observer<Resource<PagedList<Result>?>>
+
+    @Mock
+    private lateinit var pagedList: PagedList<Result>
 
     @Before
     fun setUp(){
@@ -38,8 +42,9 @@ class MovieViewModelTest {
 
     @Test
     fun getMovieData() {
-        val dummyMovies : Resource<List<Result>?> = Resource.success(DataObjek.listDataMovieDummy())
-        val movies = MutableLiveData<Resource<List<Result>?>>()
+        val dummyMovies:Resource<PagedList<Result>?> = Resource.success(pagedList)
+        `when`(dummyMovies.data?.size).thenReturn(2)
+        val movies = MutableLiveData<Resource<PagedList<Result>?>>()
         movies.value = dummyMovies
 
         `when`(appRepository.getAllMovies()).thenReturn(movies)

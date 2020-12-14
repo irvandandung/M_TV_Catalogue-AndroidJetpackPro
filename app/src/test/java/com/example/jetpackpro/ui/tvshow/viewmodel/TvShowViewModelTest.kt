@@ -3,6 +3,7 @@ package com.example.jetpackpro.ui.tvshow.viewmodel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import com.example.jetpackpro.data.source.Repository
 import com.example.jetpackpro.data.tvshowentity.Result
 import com.example.jetpackpro.utils.DataObjek
@@ -29,7 +30,10 @@ class TvShowViewModelTest {
     private lateinit var appRepository: Repository
 
     @Mock
-    private lateinit var observer: Observer<Resource<List<Result>?>>
+    private lateinit var observer: Observer<Resource<PagedList<Result>?>>
+
+    @Mock
+    private lateinit var pagedList: PagedList<Result>
 
     @Before
     fun setUp(){
@@ -38,8 +42,9 @@ class TvShowViewModelTest {
 
     @Test
     fun getTvShowData() {
-        val dummyTvShows : Resource<List<Result>?> = Resource.success(DataObjek.listDataTvShowDummy())
-        val tvshow = MutableLiveData<Resource<List<Result>?>>()
+        val dummyTvShows : Resource<PagedList<Result>?> = Resource.success(pagedList)
+        `when`(dummyTvShows.data?.size).thenReturn(1)
+        val tvshow = MutableLiveData<Resource<PagedList<Result>?>>()
         tvshow.value = dummyTvShows
 
         `when`(appRepository.getAllTvshow()).thenReturn(tvshow)
