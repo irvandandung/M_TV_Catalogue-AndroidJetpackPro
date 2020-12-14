@@ -18,8 +18,8 @@ class TvShowSectionFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_tv_show_section, container, false)
         sectionsTvShowPagerAdapter = SectionsTvShowPagerAdapter(childFragmentManager)
         sectionsTvShowPagerAdapter.setTitle(getString(R.string.tv_show_title), getString(R.string.tv_show_favorite_tile))
-        root.view_pager.adapter = sectionsTvShowPagerAdapter
-        root.tabs_main.setupWithViewPager(root.view_pager)
+        root.view_pager_tv.adapter = sectionsTvShowPagerAdapter
+        root.tabs_main.setupWithViewPager(root.view_pager_tv)
         return root
     }
 }

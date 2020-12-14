@@ -15,6 +15,7 @@ import com.example.jetpackpro.ui.tvshow.adapter.TvShowFavoriteAdapter
 import com.example.jetpackpro.ui.tvshow.viewmodel.TvShowViewModel
 import com.example.jetpackpro.viewmodelfactory.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_tv_show.*
+import kotlinx.android.synthetic.main.fragment_tv_show_favorite.*
 
 class TvShowFavoriteFragment : Fragment(), TvShowFavoriteFragmentCallback{
     private lateinit var factory: ViewModelFactory
@@ -26,7 +27,7 @@ class TvShowFavoriteFragment : Fragment(), TvShowFavoriteFragmentCallback{
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tv_show, container, false)
+        return inflater.inflate(R.layout.fragment_tv_show_favorite, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,7 +44,7 @@ class TvShowFavoriteFragment : Fragment(), TvShowFavoriteFragmentCallback{
             viewModel.getTvShowFavoriteData().observe(this.viewLifecycleOwner, Observer { tvshowFavorite ->
                 showLoading(false)
                 tvShowFavoriteAdapter.setTvShowFavorite(tvshowFavorite)
-                with(rv_tvshow){
+                with(rv_tvshow_favorite){
                     layoutManager = LinearLayoutManager(context)
                     setHasFixedSize(true)
                     adapter = tvShowFavoriteAdapter
@@ -68,9 +69,9 @@ class TvShowFavoriteFragment : Fragment(), TvShowFavoriteFragmentCallback{
 
     private fun showLoading(state : Boolean){
         if (state){
-            progress_bar.visibility = View.VISIBLE
+            progress_bar_favorite.visibility = View.VISIBLE
         }else{
-            progress_bar.visibility = View.GONE
+            progress_bar_favorite.visibility = View.GONE
         }
     }
 }
